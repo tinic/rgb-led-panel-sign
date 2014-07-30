@@ -1,0 +1,106 @@
+/*
+ * This code is released into the public domain
+ */
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+	/* identification */
+	part-number = "BB-BONE-PRU";
+
+	version = "00A0";
+
+	/* state the resources this cape uses */
+	exclusive-use =
+		/* the pin header P8 uses */
+        "P9.27",    /* pru1: pr1_pru0_pru_r30_5 */
+        "P9.28",    /* pru1: pr1_pru0_pru_r30_3 */
+        "P9.29",    /* pru1: pr1_pru0_pru_r30_1 */
+        "P9.30",    /* pru1: pr1_pru0_pru_r30_2 */
+        "P9.31",    /* pru1: pr1_pru0_pru_r30_0 */
+        "P9.25",    /* pru1: pr1_pru0_pru_r30_7 */
+        "P9.42",    /* pru1: pr1_pru0_pru_r30_4 */
+        "P8.7",     /* gpio2[2] */
+        "P8.8",     /* gpio2[3] */
+        "P8.9",     /* gpio2[5] */
+        "P8.10",    /* gpio2[4] */
+        "P8.11",    /* pru1: pr1_pru0_pru_r30_15 */
+        "P8.12",    /* pru1: pr1_pru0_pru_r30_14 */
+
+    	"P8.20",	/* pru1: pr1_pru1_pru_r30_13 */
+		"P8.21",	/* pru1: pr1_pru1_pru_r30_12 */
+		"P8.27",	/* pru1: pr1_pru1_pru_r30_8 */
+		"P8.28",	/* pru1: pr1_pru1_pru_r30_10 */
+		"P8.29",	/* pru1: pr1_pru1_pru_r30_9 */
+		"P8.30",	/* pru1: pr1_pru1_pru_r30_11 */
+		"P8.39",	/* pru1: pr1_pru1_pru_r30_6 */
+		"P8.40",	/* pru1: pr1_pru1_pru_r30_7 */
+		"P8.41",	/* pru1: pr1_pru1_pru_r30_4 */
+		"P8.42",	/* pru1: pr1_pru1_pru_r30_5 */
+		"P8.43",	/* pru1: pr1_pru1_pru_r30_2 */
+		"P8.44",	/* pru1: pr1_pru1_pru_r30_3 */
+		"P8.45",	/* pru1: pr1_pru1_pru_r30_0 */
+		"P8.46",	/* pru1: pr1_pru1_pru_r30_1 */
+		"pruss"; 
+
+	fragment@0 {
+		target = <&am33xx_pinmux>;
+		__overlay__ {
+    		mygpio: pinmux_mygpio {
+				pinctrl-single,pins = <
+                    0x1A4 0x15 /* pru1: pr1_pru0_pru_r30_5 */
+                    0x19C 0x15 /* pru1: pr1_pru0_pru_r30_3 */
+                    0x194 0x15 /* pru1: pr1_pru0_pru_r30_1 */
+                    0x198 0x15 /* pru1: pr1_pru0_pru_r30_2 */
+                    0x190 0x15 /* pru1: pr1_pru0_pru_r30_0 */
+                    0x1AC 0x15 /* pru1: pr1_pru0_pru_r30_7 */
+                    0x1A0 0x15 /* pru1: pr1_pru0_pru_r30_4 */
+                    0x164 0x20 
+                    0x090 0x17 /* gpio2[2] */
+                    0x094 0x17 /* gpio2[3] */
+                    0x09C 0x17 /* gpio2[5] */
+                    0x098 0x17 /* gpio2[4] */
+                    0x034 0x16 /* pru1: pr1_pru0_pru_r30_15 */
+                    0x030 0x16 /* pru1: pr1_pru0_pru_r30_14 */
+
+    				0x084 0x15 /* gpmc_csn2.pr1_pru1_pru_r30_13, MODE5 | OUTPUT | PRU */
+					0x080 0x15 /* gpmc_csn1.pr1_pru1_pru_r30_12, MODE5 | OUTPUT | PRU */
+					0x0e0 0x15 /* lcd_vsync.pr1_pru1_pru_r30_8, MODE5 | OUTPUT | PRU */
+					0x0e8 0x15 /* lcd_pclk.pr1_pru1_pru_r30_10, MODE5 | OUTPUT | PRU */
+					0x0e4 0x15 /* lcd_hsync.pr1_pru1_pru_r30_9, MODE5 | OUTPUT | PRU */
+					0x0ec 0x15 /* lcd_ac_bias_en.pr1_pru1_pru_r30_11, MODE5 | OUTPUT | PRU */
+					0x0b8 0x15 /* lcd_data6.pr1_pru1_pru_r30_7, MODE5 | OUTPUT | PRU */
+					0x0bc 0x15 /* lcd_data7.pr1_pru1_pru_r30_7, MODE5 | OUTPUT | PRU */
+					0x0b0 0x15 /* lcd_data4.pr1_pru1_pru_r30_4, MODE5 | OUTPUT | PRU */
+					0x0b4 0x15 /* lcd_data5.pr1_pru1_pru_r30_5, MODE5 | OUTPUT | PRU */
+					0x0a8 0x15 /* lcd_data2.pr1_pru1_pru_r30_3, MODE5 | OUTPUT | PRU */
+					0x0ac 0x15 /* lcd_data3.pr1_pru1_pru_r30_3, MODE5 | OUTPUT | PRU */
+					0x0a0 0x15 /* lcd_data0.pr1_pru1_pru_r30_0, MODE5 | OUTPUT | PRU */
+					0x0a4 0x15 /* lcd_data1.pr1_pru1_pru_r30_1, MODE5 | OUTPUT | PRU */				
+                		>;
+			};		
+		};
+	};
+
+    fragment@1 {
+        target = <&ocp>;
+        __overlay__ {
+            test_helper: helper {
+                compatible = "bone-pinmux-helper";
+                pinctrl-names = "default";
+                pinctrl-0 = <&mygpio>;
+                status = "okay";
+            };
+        };
+    };
+
+	fragment@2{
+		target = <&pruss>;
+		__overlay__{
+			status = "okay";
+
+		};
+	};
+};
